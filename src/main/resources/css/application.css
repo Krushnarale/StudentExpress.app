@@ -1,0 +1,32 @@
+/* StudentExpress Master Application Stylesheet */
+
+.root {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-background-color: #F8FAF6;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+}
+
+.text-field, .password-field {
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #E2E8F0;
+    -fx-padding: 8px 12px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #4F772D;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: #F8FAF6;
+}
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
