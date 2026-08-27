@@ -1,0 +1,26 @@
+# Maven build output
+target/
+
+# Compiled class files
+*.class
+
+# IDE and Editor files
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.json
+
+# Sensitive credentials
+# src/main/resources/firebase/serviceAccount.json
+src/main/resources/firebase/serviceAccount.json
+C:\Users\Krushna Rale\OneDrive\Desktop\Project\StudentExpress.app\src\main\resources\firebase\serviceAccount.json
+
+# Nested folders
+studentexpress/
