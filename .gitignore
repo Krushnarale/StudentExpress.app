@@ -1,0 +1,25 @@
+# Build output
+target/
+*.class
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Firebase credentials (SENSITIVE - never commit)
+src/main/resources/firebase/serviceAccount.json
+src/main/resources/firebase/*.json
+
+# Maven
+.mvn/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temp
+studentexpress/
