@@ -33,9 +33,23 @@ public class AdminDashboard {
         // Top Bar Navigation & Actions
         HBox topBar = new HBox(12);
         topBar.setAlignment(Pos.CENTER_LEFT);
-        Button backToAppBtn = new Button("← Back to StudentExpress");
-        backToAppBtn.setStyle(Theme.outlineBtnStyle());
-        backToAppBtn.setOnAction(e -> Main.showHomePage());
+
+        HBox logoRow = new HBox(10);
+        logoRow.setAlignment(Pos.CENTER_LEFT);
+        StackPane roleBadge = new StackPane();
+        roleBadge.setPrefSize(36, 36);
+        roleBadge.setStyle("-fx-background-color: " + Theme.PRIMARY_LIGHT + "; -fx-background-radius: 10px;");
+        Text roleIcon = new Text("🛡️");
+        roleIcon.setStyle("-fx-font-size: 16px;");
+        roleBadge.getChildren().add(roleIcon);
+        Text logoTxt = new Text("StudentExpress  •  System Admin Console");
+        logoTxt.setStyle("-fx-fill: " + Theme.PRIMARY + "; -fx-font-family: " + Theme.FONT + "; -fx-font-size: 20px; -fx-font-weight: 800;");
+        logoRow.getChildren().addAll(roleBadge, logoTxt);
+        HBox.setHgrow(logoRow, Priority.ALWAYS);
+
+        Button messagesBtn = new Button("💬 Messages");
+        messagesBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-padding: 7px 14px;");
+        messagesBtn.setOnAction(e -> Main.showMessagesPage());
 
         Button logoutBtn = new Button("Logout");
         logoutBtn.setStyle(Theme.dangerBtnStyle());
@@ -51,9 +65,7 @@ public class AdminDashboard {
             });
         });
 
-        Region topSpacer = new Region();
-        HBox.setHgrow(topSpacer, Priority.ALWAYS);
-        topBar.getChildren().addAll(backToAppBtn, topSpacer, logoutBtn);
+        topBar.getChildren().addAll(logoRow, messagesBtn, logoutBtn);
 
         User resolvedUser = DataRepository.getInstance().getCurrentUser();
         if (resolvedUser == null) resolvedUser = SessionManager.getInstance().getCurrentUser();
@@ -269,7 +281,7 @@ public class AdminDashboard {
         BorderPane rootPane = new BorderPane(node);
         rootPane.setStyle(Theme.rootPaneStyle());
 
-        // ─── Top Bar (dark green gradient) ──────────────────────
+        // Top Bar (dark green gradient)
         HBox topBar = new HBox(20);
         topBar.setAlignment(Pos.CENTER_LEFT);
         topBar.setPadding(new Insets(16, 30, 16, 30));
@@ -291,8 +303,8 @@ public class AdminDashboard {
         logoRow.getChildren().addAll(roleBadge, logoTxt);
         HBox.setHgrow(logoRow, Priority.ALWAYS);
 
-        Button backAppBtn = new Button("← Back to StudentExpress");
-        backAppBtn.setStyle(
+        Button messagesBtn = new Button("💬 Messages");
+        messagesBtn.setStyle(
             "-fx-background-color: rgba(255,255,255,0.15);"
             + "-fx-text-fill: white;"
             + "-fx-font-family: " + Theme.FONT + ";"
@@ -303,7 +315,7 @@ public class AdminDashboard {
             + "-fx-padding: 8px 16px;"
             + "-fx-cursor: hand;"
         );
-        backAppBtn.setOnAction(e -> Main.showHomePage());
+        messagesBtn.setOnAction(e -> Main.showMessagesPage());
 
         Button logoutBtn = new Button("Logout");
         logoutBtn.setStyle(
@@ -329,7 +341,7 @@ public class AdminDashboard {
             });
         });
 
-        topBar.getChildren().addAll(logoRow, backAppBtn, logoutBtn);
+        topBar.getChildren().addAll(logoRow, messagesBtn, logoutBtn);
         rootPane.setTop(topBar);
 
         if (adminScene == null) {

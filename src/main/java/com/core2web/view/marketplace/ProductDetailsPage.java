@@ -224,10 +224,15 @@ public class ProductDetailsPage {
                 });
             });
 
-            Button chatBtn = new Button("💬 Message Seller");
+            Button chatBtn = new Button("💬 Contact Seller");
             chatBtn.setMaxWidth(Double.MAX_VALUE);
             chatBtn.setStyle(Theme.secondaryBtnStyle());
-            chatBtn.setOnAction(e -> showAlert("Chat Started", "Opening direct chat with " + sName));
+            chatBtn.setOnAction(e -> {
+                String sellerUid = (p.getSellerUid() != null && !p.getSellerUid().trim().isEmpty())
+                    ? p.getSellerUid().trim()
+                    : ("seller_" + Math.abs(sName.hashCode()));
+                Main.showChatWithUser(sellerUid, sName, "SELLER", p.getId(), "PRODUCT", p.getTitle());
+            });
 
             Button callBtn = new Button("📞 Call Seller");
             callBtn.setMaxWidth(Double.MAX_VALUE);

@@ -88,9 +88,7 @@ public class RoommateFinderPage {
         List<RoommateRequest> incomingReqs = DataRepository.getInstance().getIncomingRoommateRequests(currentUid);
         long pendingReqCount = incomingReqs.stream().filter(r -> "PENDING".equalsIgnoreCase(r.getStatus())).count();
 
-        // ─────────────────────────────────────────────────────────
         // HEADER ROW: Title & Mode Switcher Buttons
-        // ─────────────────────────────────────────────────────────
         HBox headerRow = new HBox(16);
         headerRow.setAlignment(Pos.CENTER_LEFT);
 
@@ -189,9 +187,7 @@ public class RoommateFinderPage {
         btnRequests.setStyle(current == ActiveTab.REQUESTS ? activeStyle : inactiveStyle);
     }
 
-    // ─────────────────────────────────────────────────────────────
     // TAB 1: BROWSE / FIND A ROOMMATE VIEW
-    // ─────────────────────────────────────────────────────────────
     private Node createBrowseView(Consumer<RoommateItem> onSelectRoommate, Runnable onNavigateToRegister) {
         VBox browseBox = new VBox(14);
         browseBox.setMaxWidth(Double.MAX_VALUE);
@@ -322,9 +318,7 @@ public class RoommateFinderPage {
         return result;
     }
 
-    // ─────────────────────────────────────────────────────────────
     // TAB 2: REGISTER AS ROOMMATE / EDIT PROFILE FORM
-    // ─────────────────────────────────────────────────────────────
     private Node createRegisterView(User currentUser, Runnable onFinish) {
         VBox container = new VBox(20);
         container.setMaxWidth(780);
@@ -346,7 +340,7 @@ public class RoommateFinderPage {
 
         VBox titleBox = new VBox(4, formTitle, formSub);
 
-        // ─── Profile Photo Upload Section ───
+        // Profile Photo Upload Section
         HBox photoRow = new HBox(18);
         photoRow.setAlignment(Pos.CENTER_LEFT);
         photoRow.setPadding(new Insets(10, 0, 10, 0));
@@ -426,7 +420,7 @@ public class RoommateFinderPage {
         photoActions.getChildren().addAll(photoLbl, btnBox);
         photoRow.getChildren().addAll(photoContainer, photoActions);
 
-        // ─── Personal Details Grid (Safe Auto-fill from Current User) ───
+        // Personal Details Grid (Safe Auto-fill from Current User)
         GridPane grid = new GridPane();
         grid.setHgap(16);
         grid.setVgap(12);
@@ -598,7 +592,7 @@ public class RoommateFinderPage {
         col2.setPercentWidth(50);
         grid.getColumnConstraints().addAll(col1, col2);
 
-        // ─── Actions Row ───
+        // Actions Row
         HBox actionsRow = new HBox(12);
         actionsRow.setAlignment(Pos.CENTER_RIGHT);
         actionsRow.setPadding(new Insets(16, 0, 0, 0));
@@ -738,9 +732,7 @@ public class RoommateFinderPage {
         return container;
     }
 
-    // ─────────────────────────────────────────────────────────────
     // TAB 3: INCOMING ROOMMATE CONNECTION REQUESTS VIEW
-    // ─────────────────────────────────────────────────────────────
     private Node createRequestsView(String currentUid, Runnable onRefresh) {
         VBox container = new VBox(16);
         container.setMaxWidth(Double.MAX_VALUE);

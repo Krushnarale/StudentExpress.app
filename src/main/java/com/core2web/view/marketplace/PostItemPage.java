@@ -152,7 +152,6 @@ public class PostItemPage {
             );
             DataRepository.getInstance().addProduct(newItem);
             new com.core2web.dao.ProductDAOImpl().save(newItem);
-            System.out.println("[LISTING] Created: listingId=" + newItem.getId() + ", sellerId=" + newItem.getSellerUid() + ", category=" + newItem.getCategory());
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");

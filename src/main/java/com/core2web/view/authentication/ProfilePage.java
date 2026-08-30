@@ -163,7 +163,7 @@ public class ProfilePage {
         nameRow.setAlignment(Pos.CENTER_LEFT);
         nameText = new Text(currentUser.getName() != null && !currentUser.getName().trim().isEmpty() ? currentUser.getName().trim() : "Not provided");
         nameText.setStyle("-fx-fill: " + Theme.TEXT_PRIMARY + "; -fx-font-family: " + Theme.FONT + "; -fx-font-size: 20px; -fx-font-weight: bold;");
-        
+
         String roleStr = (currentUser.getRole() != null) ? currentUser.getRole().toString().replace("_", " ") : "STUDENT";
         Label roleBadge = new Label(roleStr);
         roleBadge.setStyle(Theme.badgeStyle());
@@ -200,7 +200,7 @@ public class ProfilePage {
         HBox columns = new HBox(16);
         columns.setMaxWidth(Double.MAX_VALUE);
 
-        // --- LEFT COLUMN ---
+        // LEFT COLUMN
         VBox leftCol = new VBox(14);
         HBox.setHgrow(leftCol, Priority.ALWAYS);
 
@@ -255,7 +255,7 @@ public class ProfilePage {
 
         leftCol.getChildren().addAll(academicCard, settingsCard);
 
-        // --- RIGHT COLUMN ---
+        // RIGHT COLUMN
         VBox rightCol = new VBox(14);
         rightCol.setPrefWidth(380);
         rightCol.setMinWidth(320);
@@ -279,7 +279,7 @@ public class ProfilePage {
         VBox statBookings = quickStatTile(String.valueOf(bookingCount), "Active Bookings", "#2563EB", () -> Main.showMyBookingsPage());
         VBox statOrders = quickStatTile(String.valueOf(orderCount), "Orders Placed", "#7C3AED", () -> Main.showMyOrdersPage());
         VBox statSaved = quickStatTile(String.valueOf(savedCount), "Saved Items", "#4F772D", () -> Main.showSavedItemsPage());
-        VBox statMessages = quickStatTile("0", "Messages", "#D97706", () -> showAlert("Messages", "No unread messages."));
+        VBox statMessages = quickStatTile("💬", "Messages", "#D97706", () -> Main.showMessagesPage());
 
         statsGrid.add(statBookings, 0, 0);
         statsGrid.add(statOrders, 1, 0);
@@ -690,16 +690,6 @@ public class ProfilePage {
                 new Thread(() -> new com.core2web.dao.UserDAOImpl().save(u)).start();
                 com.core2web.util.SessionManager.getInstance().login(u);
                 DataRepository.getInstance().setCurrentUser(u);
-
-                System.out.println("========== SELLER REGISTRATION ==========");
-                System.out.println("Current Firebase UID = " + u.getUid());
-                System.out.println("Current Student role = " + u.getRole());
-                System.out.println("Seller enabled before = " + sellerEnabledBefore);
-                System.out.println("Seller enabled after = true");
-                System.out.println("Seller profile path = sellers/" + u.getUid());
-                System.out.println("Seller profile created = true");
-                System.out.println("Navigation target = Seller Portal");
-                System.out.println("==========================================");
 
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION, "Congratulations! You are now registered as a Student Seller.\nWould you like to open your Seller Portal now?", ButtonType.YES, ButtonType.NO);
                 success.setTitle("Registration Successful");

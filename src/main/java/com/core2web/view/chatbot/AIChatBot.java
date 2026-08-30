@@ -31,9 +31,7 @@ public class AIChatBot extends StackPane {
     public AIChatBot() {
         this.geminiService = new GeminiService();
 
-        // ─────────────────────────────────────────────────────────
         // 1. FLOATING TOGGLE BUTTON
-        // ─────────────────────────────────────────────────────────
         toggleBtn = new Button("🤖  StudentExpress AI");
         toggleBtn.setStyle(
             "-fx-background-color: " + Theme.PRIMARY + ";"
@@ -48,9 +46,7 @@ public class AIChatBot extends StackPane {
         );
         toggleBtn.setOnAction(e -> toggleChatWindow());
 
-        // ─────────────────────────────────────────────────────────
         // 2. CHAT CARD WINDOW (Initially Hidden)
-        // ─────────────────────────────────────────────────────────
         chatWindow = new VBox(0);
         chatWindow.setPrefSize(370, 500);
         chatWindow.setMaxSize(370, 500);
@@ -143,9 +139,7 @@ public class AIChatBot extends StackPane {
         inputBar.getChildren().addAll(inputField, sendBtn);
         chatWindow.getChildren().addAll(header, chatScrollPane, inputBar);
 
-        // ─────────────────────────────────────────────────────────
         // 3. STACKPANE LAYOUT POSITIONING
-        // ─────────────────────────────────────────────────────────
         setPickOnBounds(false); // Let mouse events pass through transparent areas
         setAlignment(Pos.BOTTOM_RIGHT);
         setMargin(toggleBtn, new Insets(0, 24, 24, 0));

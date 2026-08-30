@@ -106,7 +106,6 @@ public class RentPage {
         Runnable refreshList = () -> {
             roomsGrid.getChildren().clear();
             List<RoomItem> filtered = getFilteredRooms(searchField.getText());
-            System.out.println("[STUDENT] Loading rentals/rooms... Found: " + filtered.size() + " listings.");
 
             for (RoomItem room : filtered) {
                 String badge = "VERIFIED";

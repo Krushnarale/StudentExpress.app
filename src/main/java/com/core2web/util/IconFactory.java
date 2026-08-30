@@ -69,38 +69,4 @@ public class IconFactory {
 
         return container;
     }
-
-    /**
-     * Renders an authentic 4-color Google "G" logo vector node.
-     */
-    public static Node getGoogleLogo(double iconSize) {
-        SVGPath redArc = new SVGPath();
-        redArc.setContent("M 24 9.5 C 27.54 9.5 30.71 10.72 33.21 13.1 L 40.06 6.25 C 35.9 2.38 30.47 0 24 0 C 14.66 0 6.51 5.38 2.56 13.22 L 10.54 19.41 C 12.43 13.72 17.74 9.5 24 9.5 Z");
-        redArc.setFill(Color.web("#EA4335"));
-
-        SVGPath blueArc = new SVGPath();
-        blueArc.setContent("M 46.98 24.55 C 46.98 22.98 46.83 21.46 46.6 20 H 24 V 29.02 H 36.94 C 36.36 31.98 34.68 34.5 32.16 36.2 L 39.89 42.2 C 44.4 38.02 46.98 31.84 46.98 24.55 Z");
-        blueArc.setFill(Color.web("#4285F4"));
-
-        SVGPath yellowArc = new SVGPath();
-        yellowArc.setContent("M 10.54 28.59 C 10.06 27.14 9.78 25.6 9.78 24 C 9.78 22.4 10.06 20.86 10.54 19.41 L 2.56 13.22 C 0.92 16.46 0 20.12 0 24 C 0 27.88 0.92 31.54 2.56 34.78 L 10.54 28.59 Z");
-        yellowArc.setFill(Color.web("#FBBC05"));
-
-        SVGPath greenArc = new SVGPath();
-        greenArc.setContent("M 24 48 C 30.48 48 35.93 45.87 39.89 42.19 L 32.16 36.19 C 30.01 37.64 27.24 38.49 24 38.49 C 17.74 38.49 12.43 34.27 10.54 28.58 L 2.56 34.77 C 6.51 42.62 14.66 48 24 48 Z");
-        greenArc.setFill(Color.web("#34A853"));
-
-        Group group = new Group(redArc, blueArc, yellowArc, greenArc);
-
-        StackPane container = new StackPane(group);
-        container.setPrefSize(iconSize, iconSize);
-        container.setMinSize(iconSize, iconSize);
-        container.setMaxSize(iconSize, iconSize);
-
-        double scale = iconSize / 48.0;
-        group.setScaleX(scale);
-        group.setScaleY(scale);
-
-        return container;
-    }
 }

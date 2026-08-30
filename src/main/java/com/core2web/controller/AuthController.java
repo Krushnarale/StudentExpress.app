@@ -138,14 +138,8 @@ public class AuthController {
 
             boolean accessGranted = sellerEnabled || sellerProfileFound || user.getRole() == User.Role.SELLER;
 
-            System.out.println("========== SELLER LOGIN ==========");
             System.out.println("Email = " + cleanEmail);
             System.out.println("Firebase authentication successful = true");
-            System.out.println("Firebase UID = " + (uid.isEmpty() ? "Not available" : uid));
-            System.out.println("Seller profile found = " + sellerProfileFound);
-            System.out.println("Seller enabled = " + sellerEnabled);
-            System.out.println("Access granted = " + accessGranted);
-            System.out.println("==================================");
 
             if (!accessGranted) {
                 return new AuthResult(false, "You are not registered as a Seller.\nPlease register as a Seller from your Student account.", user);

@@ -30,20 +30,13 @@ public class LoginPage {
 
     public javafx.scene.Node getPageNode(User.Role initialRole, Consumer<User.Role> onLoginSuccess, Runnable onChangeRole, Runnable onNavigateToSignUp) {
         if (initialRole == User.Role.SELLER) {
-            System.out.println("========== ACTUAL SELLER LOGIN CLASS ==========");
-            System.out.println("Class = com.core2web.view.authentication.LoginPage");
-            System.out.println("Method = getPageNode");
-            System.out.println("FXML/Java = Java (JavaFX Code)");
-            System.out.println("===============================================");
         }
 
         // Root — horizontal split
         HBox rootPane = new HBox();
         rootPane.setStyle("-fx-background-color: " + Theme.BG_COLOR + ";");
 
-        // ─────────────────────────────────────────────
         // LEFT PANEL — green gradient branding (~46% width)
-        // ─────────────────────────────────────────────
         VBox leftPanel = new VBox(32);
         leftPanel.prefWidthProperty().bind(rootPane.widthProperty().multiply(0.46));
         leftPanel.setMinWidth(460);
@@ -110,9 +103,7 @@ public class LoginPage {
 
         leftPanel.getChildren().addAll(logoBlock, roleInfoCard, featuresList);
 
-        // ─────────────────────────────────────────────
         // RIGHT PANEL — Clean login form card (~54% width)
-        // ─────────────────────────────────────────────
         StackPane rightWrapper = new StackPane();
         HBox.setHgrow(rightWrapper, Priority.ALWAYS);
         rightWrapper.setAlignment(Pos.CENTER);
@@ -210,32 +201,6 @@ public class LoginPage {
             if (onLoginSuccess != null) onLoginSuccess.accept(initialRole);
         });
 
-        // Social Divider
-        HBox dividerBox = new HBox(10);
-        dividerBox.setAlignment(Pos.CENTER);
-        Region line1 = new Region();
-        HBox.setHgrow(line1, Priority.ALWAYS);
-        line1.setPrefHeight(1);
-        line1.setStyle("-fx-background-color: " + Theme.BORDER_COLOR + ";");
-        Text orText = new Text("OR");
-        orText.setStyle("-fx-fill: " + Theme.TEXT_MUTED + "; -fx-font-family: " + Theme.FONT + "; -fx-font-size: 11px; -fx-font-weight: 700;");
-        Region line2 = new Region();
-        HBox.setHgrow(line2, Priority.ALWAYS);
-        line2.setPrefHeight(1);
-        line2.setStyle("-fx-background-color: " + Theme.BORDER_COLOR + ";");
-        dividerBox.getChildren().addAll(line1, orText, line2);
-
-        Button googleBtn = new Button("Continue with Google");
-        googleBtn.setGraphic(IconFactory.getGoogleLogo(18));
-        googleBtn.setGraphicTextGap(10);
-        googleBtn.setMaxWidth(Double.MAX_VALUE);
-        googleBtn.setStyle(Theme.secondaryBtnStyle()
-            + "-fx-font-size: 13px;"
-            + "-fx-padding: 9px;"
-            + "-fx-background-radius: 12px;"
-            + "-fx-border-radius: 12px;"
-        );
-
         // Switch button between Student Login and Seller Login
         VBox switchBox = new VBox(6);
         switchBox.setAlignment(Pos.CENTER);
@@ -248,7 +213,6 @@ public class LoginPage {
             switchBtn.setMaxWidth(Double.MAX_VALUE);
             switchBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-font-size: 13px; -fx-padding: 9px 14px; -fx-font-weight: 800; -fx-background-radius: 12px;");
             switchBtn.setOnAction(e -> {
-                System.out.println("[NAVIGATION] Switching from Student Login to Seller Login");
                 Main.showLoginPageWithRole(User.Role.SELLER);
             });
             switchBox.getChildren().addAll(switchPrompt, switchBtn);
@@ -259,15 +223,10 @@ public class LoginPage {
             switchBtn.setMaxWidth(Double.MAX_VALUE);
             switchBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-font-size: 13px; -fx-padding: 9px 14px; -fx-font-weight: 800; -fx-background-radius: 12px;");
             switchBtn.setOnAction(e -> {
-                System.out.println("[NAVIGATION] Switching from Seller Login to Student Login");
                 Main.showLoginPageWithRole(User.Role.STUDENT);
             });
             switchBox.getChildren().addAll(switchPrompt, switchBtn);
 
-            System.out.println("========== SELLER SWITCH BUTTON ==========");
-            System.out.println("Button created = true");
-            System.out.println("Button text = Login as Student");
-            System.out.println("==========================================");
         }
 
         HBox footerBox = new HBox(6);
@@ -283,7 +242,7 @@ public class LoginPage {
 
         card.getChildren().addAll(
             changeRoleLink, titleBox, emailGroup, passGroup,
-            forgotBox, loginBtn, switchBox, dividerBox, googleBtn, footerBox
+            forgotBox, loginBtn, switchBox, footerBox
         );
 
         rightWrapper.getChildren().add(card);
@@ -291,7 +250,7 @@ public class LoginPage {
 
         ScrollPane scrollPane = new ScrollPane(rootPane);
         scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(false);
+        scrollPane.setFitToHeight(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setMinHeight(0);

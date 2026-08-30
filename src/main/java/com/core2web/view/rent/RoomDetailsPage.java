@@ -259,10 +259,15 @@ public class RoomDetailsPage {
             bookNowBtn.setOnAction(e -> showRentalBookingDialog(room));
         }
 
-        Button msgOwnerBtn = new Button("💬 Message Owner");
+        Button msgOwnerBtn = new Button("💬 Contact Owner");
         msgOwnerBtn.setMaxWidth(Double.MAX_VALUE);
         msgOwnerBtn.setStyle(Theme.secondaryBtnStyle());
-        msgOwnerBtn.setOnAction(e -> showAlert("Chat Started", "Opening direct messaging with owner " + oName));
+        msgOwnerBtn.setOnAction(e -> {
+            String ownerUid = (room.getOwnerUid() != null && !room.getOwnerUid().trim().isEmpty())
+                ? room.getOwnerUid().trim()
+                : ("owner_" + Math.abs(oName.hashCode()));
+            Main.showChatWithUser(ownerUid, oName, "OWNER", room.getId(), "ROOM", room.getTitle());
+        });
 
         Button callNowBtn = new Button("📞 Call Owner: " + oPhone);
         callNowBtn.setMaxWidth(Double.MAX_VALUE);
@@ -440,21 +445,8 @@ public class RoomDetailsPage {
             boolean writeSuccess = new com.core2web.dao.RentalDAOImpl().save(rental);
             DataRepository.getInstance().addRental(rental);
 
-            System.out.println("========== REQUEST FLOW ==========");
-            System.out.println("[STUDENT]");
-            System.out.println("UID: " + rental.getStudentId());
             System.out.println();
-            System.out.println("[LISTING]");
-            System.out.println("ID: " + rental.getItemId());
-            System.out.println("OWNER ID: " + rental.getOwnerId());
             System.out.println();
-            System.out.println("[REQUEST WRITE]");
-            System.out.println("Path: rentals/" + rental.getRentalId());
-            System.out.println("Request Owner ID: " + rental.getOwnerId());
-            System.out.println("Request Student ID: " + rental.getStudentId());
-            System.out.println("Status: PENDING");
-            System.out.println("Write successful: " + writeSuccess);
-            System.out.println("==================================");
 
             showAlert("Rental Request Sent!",
                 "Your rental request for '" + rental.getItemTitle() + "' has been successfully sent to owner " + rental.getOwnerName() + ".\n\n"

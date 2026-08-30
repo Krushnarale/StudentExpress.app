@@ -116,7 +116,6 @@ public class ServiceBookingPage {
             );
             DataRepository.getInstance().addBooking(b);
             new com.core2web.dao.BookingDAOImpl().save(b);
-            System.out.println("[REQUEST] Created: requestId=" + b.getId() + ", studentId=" + b.getUserUid() + ", serviceId=" + b.getItemId() + ", providerId=" + b.getProviderUid());
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Booking Requested!");
@@ -145,7 +144,7 @@ public class ServiceBookingPage {
         Node node = getPageNode(service, backCallback);
         BorderPane rootPane = new BorderPane(node);
         rootPane.setStyle(Theme.rootPaneStyle());
-        
+
         serviceBookingScene = new Scene(rootPane, 1000, 650);
         return serviceBookingScene;
     }

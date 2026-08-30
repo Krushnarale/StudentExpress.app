@@ -96,7 +96,7 @@ public class WalletPage {
         balanceCard.getChildren().addAll(cardTop, balAmountText, cardActionRow, cardHolder);
         balanceCardWrapper.getChildren().add(balanceCard);
 
-        // ─── Quick action chips ─────────────────────────────────
+        // Quick action chips
         HBox quickChips = new HBox(12);
         quickChips.getChildren().addAll(
             quickChip("📱", "UPI Pay"),
@@ -105,7 +105,7 @@ public class WalletPage {
             quickChip("📦", "Pay for Order")
         );
 
-        // ─── Payment Methods Card ───────────────────────────────
+        // Payment Methods Card
         VBox paymentMethodsCard = new VBox(0);
         paymentMethodsCard.setStyle(Theme.cardStyle());
 
@@ -123,7 +123,7 @@ public class WalletPage {
             paymentMethodRow("🏦", "State Bank of India", "••••  ••••  ••••  4591", "Savings Account", false)
         );
 
-        // ─── Transaction History ────────────────────────────────
+        // Transaction History
         VBox historyCard = new VBox(0);
         historyCard.setStyle(Theme.cardStyle());
 

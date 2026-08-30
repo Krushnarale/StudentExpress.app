@@ -1,5 +1,6 @@
 package com.core2web.view.services;
 
+import com.core2web.Main;
 import com.core2web.dao.ServiceDAOImpl;
 import com.core2web.dao.UserDAOImpl;
 import com.core2web.model.Booking;
@@ -41,7 +42,7 @@ public class ServiceProviderDashboard {
         if (resolvedUser == null) resolvedUser = new User("", "Not provided", "Not provided", "Not provided", User.Role.SERVICE_PROVIDER);
         final User currentUser = resolvedUser;
 
-        // ─── Top Bar (Without Back to App button) ───────────────
+        // Top Bar (Without Back to App button)
         HBox topBar = new HBox(20);
         topBar.setAlignment(Pos.CENTER_LEFT);
         topBar.setPadding(new Insets(16, 30, 16, 30));
@@ -60,6 +61,10 @@ public class ServiceProviderDashboard {
         logoRow.getChildren().addAll(roleBadge, logoTxt);
         HBox.setHgrow(logoRow, Priority.ALWAYS);
 
+        Button messagesBtn = new Button("💬 Messages");
+        messagesBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-padding: 7px 14px;");
+        messagesBtn.setOnAction(e -> Main.showMessagesPage());
+
         Button logoutBtn = new Button("Logout");
         logoutBtn.setStyle(Theme.dangerBtnStyle());
         logoutBtn.setOnAction(e -> {
@@ -74,10 +79,10 @@ public class ServiceProviderDashboard {
             });
         });
 
-        topBar.getChildren().addAll(logoRow, logoutBtn);
+        topBar.getChildren().addAll(logoRow, messagesBtn, logoutBtn);
         rootPane.setTop(topBar);
 
-        // ─── Main Content ───────────────────────────────────────
+        // Main Content
         VBox mainContent = new VBox(22);
         mainContent.setPadding(new Insets(28, 40, 28, 40));
 
@@ -87,7 +92,7 @@ public class ServiceProviderDashboard {
         VBox titleBox = new VBox(4);
         Text titleTxt = new Text("Service Provider Hub & Management");
         titleTxt.setStyle("-fx-fill: " + Theme.TEXT_PRIMARY + "; -fx-font-family: " + Theme.FONT + "; -fx-font-size: 26px; -fx-font-weight: 800;");
-        Text subTxt = new Text("Offer Laundry, Tiffin, Room Cleaning, Wi-Fi Setup, Tutoring & Printing to campus students");
+        Text subTxt = new Text("Offer Laundry, Tiffin / Mess, Room Cleaning, Wi-Fi Setup & Maintenance to campus students");
         subTxt.setStyle(Theme.mutedTextStyle());
         titleBox.getChildren().addAll(titleTxt, subTxt);
         HBox.setHgrow(titleBox, Priority.ALWAYS);
@@ -120,7 +125,7 @@ public class ServiceProviderDashboard {
             createStatCard(IconFactory.PATH_STAR, "4.9", "Average Rating", "#10B981")
         );
 
-        // ─── Section 1: Incoming Service Requests Management ──────
+        // Section 1: Incoming Service Requests Management
         VBox requestsSection = new VBox(14);
         HBox reqHeader = new HBox(12);
         reqHeader.setAlignment(Pos.CENTER_LEFT);
@@ -148,7 +153,6 @@ public class ServiceProviderDashboard {
                     reqList.add(mb);
                 }
             }
-            System.out.println("[PROVIDER] Loading requests for providerId=" + currentUser.getUid() + " ... Requests found=" + reqList.size());
 
             if (reqList.isEmpty()) {
                 VBox emptyReq = new VBox(10);
@@ -168,7 +172,7 @@ public class ServiceProviderDashboard {
 
         requestsSection.getChildren().addAll(reqHeader, requestsContainer);
 
-        // ─── Section 2: Offered Services Management ───────────────
+        // Section 2: Offered Services Management
         HBox sectionHeader = new HBox(12);
         sectionHeader.setAlignment(Pos.CENTER_LEFT);
         Text secTitle = new Text("My Offered Student Services");
@@ -176,7 +180,7 @@ public class ServiceProviderDashboard {
         sectionHeader.getChildren().add(secTitle);
 
         HBox categoryPills = new HBox(10);
-        String[] serviceCats = {"All Services", "🧺 Laundry", "🍱 Tiffin", "🧹 Cleaning", "📶 Wi-Fi", "🖨️ Printing", "📚 Tutoring", "🛵 Transport"};
+        String[] serviceCats = {"All Services", "🧺 Laundry", "🍱 Tiffin / Mess", "🧹 Cleaning", "📶 Wi-Fi", "🛠️ Repair & Maintenance"};
 
         VBox servicesListContainer = new VBox(16);
 
@@ -222,12 +226,10 @@ public class ServiceProviderDashboard {
             pill.setStyle(Theme.filterPillStyle(cat.equals("All Services")));
             pill.setOnAction(e -> {
                 if (cat.contains("Laundry")) activeCategory = "Laundry";
-                else if (cat.contains("Tiffin")) activeCategory = "Tiffin";
+                else if (cat.contains("Tiffin") || cat.contains("Mess")) activeCategory = "Tiffin / Mess";
                 else if (cat.contains("Cleaning")) activeCategory = "Cleaning";
                 else if (cat.contains("Wi-Fi")) activeCategory = "Wi-Fi";
-                else if (cat.contains("Printing")) activeCategory = "Printing";
-                else if (cat.contains("Tutoring")) activeCategory = "Tutoring";
-                else if (cat.contains("Transport")) activeCategory = "Transport";
+                else if (cat.contains("Repair") || cat.contains("Maintenance")) activeCategory = "Repair & Maintenance";
                 else activeCategory = "All Services";
                 refreshServices[0].run();
             });
@@ -495,6 +497,14 @@ public class ServiceProviderDashboard {
         HBox actionsRow = new HBox(10);
         actionsRow.setAlignment(Pos.CENTER_RIGHT);
 
+        Button chatStudentBtn = new Button("💬 Message Student");
+        chatStudentBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-padding: 6px 14px; -fx-font-size: 12px;");
+        chatStudentBtn.setOnAction(ev -> {
+            String studentUid = (b.getUserUid() != null && !b.getUserUid().isEmpty()) ? b.getUserUid() : "student_" + Math.abs(emailDisplay.hashCode());
+            Main.showChatWithUser(studentUid, emailDisplay, "STUDENT", b.getItemId(), "SERVICE", b.getItemOrServiceName());
+        });
+        actionsRow.getChildren().add(chatStudentBtn);
+
         if ("PENDING".equalsIgnoreCase(status)) {
             Button acceptBtn = new Button("✓ Accept Request");
             acceptBtn.setStyle(Theme.primaryBtnStyle() + " -fx-padding: 6px 14px; -fx-font-size: 12px;");
@@ -544,25 +554,7 @@ public class ServiceProviderDashboard {
         if (catFilter == null || catFilter.isEmpty() || catFilter.equalsIgnoreCase("All Services") || catFilter.equalsIgnoreCase("All")) {
             return true;
         }
-        String filter = catFilter.toLowerCase().trim();
-        String itemCat = s.getCategory() != null ? s.getCategory().toLowerCase().trim() : "";
-        String itemTitle = s.getTitle() != null ? s.getTitle().toLowerCase().trim() : "";
-        String itemSub = s.getSubtitle() != null ? s.getSubtitle().toLowerCase().trim() : "";
-
-        if (itemCat.equals(filter) || itemCat.contains(filter) || filter.contains(itemCat)) {
-            return true;
-        }
-
-        if (filter.contains("laundry")) return itemCat.contains("laundr") || itemCat.contains("wash") || itemCat.contains("iron") || itemTitle.contains("laundry") || itemTitle.contains("iron");
-        if (filter.contains("tiffin") || filter.contains("mess")) return itemCat.contains("tiffin") || itemCat.contains("mess") || itemCat.contains("meal") || itemCat.contains("food") || itemTitle.contains("tiffin") || itemTitle.contains("mess");
-        if (filter.contains("cleaning") || filter.contains("clean")) return itemCat.contains("clean") || itemCat.contains("maid") || itemCat.contains("housekeep") || itemTitle.contains("clean");
-        if (filter.contains("wi-fi") || filter.contains("wifi") || filter.contains("tech")) return itemCat.contains("wi-fi") || itemCat.contains("wifi") || itemCat.contains("tech") || itemCat.contains("internet") || itemTitle.contains("wifi") || itemTitle.contains("tech");
-        if (filter.contains("printing") || filter.contains("print")) return itemCat.contains("print") || itemCat.contains("xerox") || itemCat.contains("scan") || itemTitle.contains("print");
-        if (filter.contains("tutoring") || filter.contains("tutor")) return itemCat.contains("tutor") || itemCat.contains("teach") || itemCat.contains("class") || itemTitle.contains("tutor");
-        if (filter.contains("transport")) return itemCat.contains("transport") || itemCat.contains("cab") || itemCat.contains("ride") || itemCat.contains("bike") || itemTitle.contains("transport");
-        if (filter.contains("repair") || filter.contains("appliance")) return itemCat.contains("repair") || itemCat.contains("electric") || itemCat.contains("plumb") || itemTitle.contains("repair");
-
-        return itemTitle.contains(filter) || itemSub.contains(filter);
+        return ServicesPage.matchesCategory(s, catFilter);
     }
 
     private List<ServiceItem> getFilteredServices(String catFilter, User currentUser) {
@@ -707,7 +699,7 @@ public class ServiceProviderDashboard {
         titleField.setPromptText("Service Title (e.g. Express Laundry & Ironing / Mess Tiffin Service)");
 
         ComboBox<String> catBox = new ComboBox<>();
-        catBox.getItems().addAll("Laundry", "Tiffin & Mess", "Room Cleaning", "Wi-Fi & Tech", "Printing", "Tutoring", "Transport", "Appliance Repair");
+        catBox.getItems().addAll("Laundry", "Tiffin / Mess", "Cleaning", "Wi-Fi", "Repair & Maintenance");
         catBox.setValue("Laundry");
         catBox.setMaxWidth(Double.MAX_VALUE);
 
@@ -851,13 +843,10 @@ public class ServiceProviderDashboard {
             if (btn == ButtonType.OK && !titleField.getText().trim().isEmpty()) {
                 String icon = "🧺";
                 String selectedCat = catBox.getValue();
-                if ("Tiffin & Mess".equals(selectedCat)) icon = "🍱";
-                else if ("Room Cleaning".equals(selectedCat)) icon = "🧹";
-                else if ("Wi-Fi & Tech".equals(selectedCat)) icon = "📶";
-                else if ("Printing".equals(selectedCat)) icon = "🖨️";
-                else if ("Tutoring".equals(selectedCat)) icon = "📚";
-                else if ("Transport".equals(selectedCat)) icon = "🛵";
-                else if ("Appliance Repair".equals(selectedCat)) icon = "🔧";
+                if ("Tiffin / Mess".equals(selectedCat) || (selectedCat != null && (selectedCat.contains("Tiffin") || selectedCat.contains("Mess")))) icon = "🍱";
+                else if ("Cleaning".equals(selectedCat) || (selectedCat != null && selectedCat.contains("Clean"))) icon = "🧹";
+                else if ("Wi-Fi".equals(selectedCat) || (selectedCat != null && selectedCat.contains("Wi-Fi"))) icon = "📶";
+                else if ("Repair & Maintenance".equals(selectedCat) || (selectedCat != null && (selectedCat.contains("Repair") || selectedCat.contains("Maintenance")))) icon = "🛠️";
 
                 String imgPath = icon;
                 String publicId = "";
@@ -907,7 +896,6 @@ public class ServiceProviderDashboard {
         dialog.showAndWait().ifPresent(newItem -> {
             DataRepository.getInstance().addService(newItem);
             new ServiceDAOImpl().save(newItem);
-            System.out.println("[LISTING] Created: listingId=" + newItem.getId() + ", providerId=" + newItem.getProviderUid() + ", category=" + newItem.getCategory());
             showAlert("Success", "'" + newItem.getTitle() + "' added to your service catalog!");
             onAdded.run();
         });

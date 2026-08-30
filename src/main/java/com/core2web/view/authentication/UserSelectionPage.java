@@ -22,7 +22,7 @@ public class UserSelectionPage {
         // Theme green background
         rootPane.setStyle("-fx-background-color: linear-gradient(to bottom right, #2E4A18, #4F772D, #6A9E45);");
 
-        // ─── Header ─────────────────────────────────────────────
+        // Header
         VBox header = new VBox(12);
         header.setAlignment(Pos.CENTER);
         header.setPadding(new Insets(44, 20, 20, 20));
@@ -49,7 +49,7 @@ public class UserSelectionPage {
         header.getChildren().addAll(logoBox, headerTitle, headerSub);
         rootPane.setTop(header);
 
-        // ─── Single Horizontal Line of 4 Role Logos ───────────────
+        // Single Horizontal Line of 4 Role Logos
         HBox roleRow = new HBox(24);
         roleRow.setAlignment(Pos.CENTER);
         roleRow.setPadding(new Insets(30, 24, 30, 24));
@@ -88,7 +88,7 @@ public class UserSelectionPage {
 
         rootPane.setCenter(scrollWrapper);
 
-        // ─── Footer ─────────────────────────────────────────────
+        // Footer
         HBox footer = new HBox(6);
         footer.setAlignment(Pos.CENTER);
         footer.setPadding(new Insets(16, 20, 36, 20));

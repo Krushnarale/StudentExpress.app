@@ -117,7 +117,6 @@ public class BuySellPage {
         Runnable refreshList = () -> {
             productsGrid.getChildren().clear();
             List<ProductItem> filtered = getFilteredProducts(searchField.getText());
-            System.out.println("[STUDENT] Loading marketplace products... Found: " + filtered.size() + " products.");
 
             for (ProductItem p : filtered) {
                 String badge = "AVAILABLE";

@@ -72,7 +72,6 @@ public class MainShell extends BorderPane {
         setCenter(centerWrapper);
     }
 
-
     private void buildHeader() {
         topHeader = new HBox(16);
         topHeader.setAlignment(Pos.CENTER_LEFT);
@@ -178,7 +177,7 @@ public class MainShell extends BorderPane {
         VBox.setMargin(personalLabel, new Insets(6, 0, 1, 0));
 
         btnSaved = createVectorSidebarBtn("Saved", IconFactory.PATH_HEART_OUTLINE, "SAVED", () -> Main.showSavedItemsPage());
-        btnMessages = createVectorSidebarBtn("Messages", IconFactory.PATH_MESSAGE, "MESSAGES", () -> showAlert("Messages", "No unread messages."));
+        btnMessages = createVectorSidebarBtn("Messages", IconFactory.PATH_MESSAGE, "MESSAGES", () -> Main.showMessagesPage());
         btnRentals = createVectorSidebarBtn("My Rentals", IconFactory.PATH_KEY, "MY_RENTALS", () -> Main.showMyRentalsPage());
         btnOrders = createVectorSidebarBtn("My Orders", IconFactory.PATH_SHOPPING_BAG, "ORDERS", () -> Main.showMyOrdersPage());
 
@@ -341,5 +340,4 @@ public class MainShell extends BorderPane {
         alert.showAndWait();
     }
 }
-
 

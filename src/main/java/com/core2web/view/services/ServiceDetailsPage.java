@@ -108,10 +108,15 @@ public class ServiceDetailsPage {
         bookBtn.setStyle(Theme.primaryBtnStyle());
         bookBtn.setOnAction(e -> { if (onNavigateBooking != null) onNavigateBooking.run(); });
 
-        Button msgBtn = new Button("💬 Message Provider");
+        Button msgBtn = new Button("💬 Contact Provider");
         msgBtn.setMaxWidth(Double.MAX_VALUE);
         msgBtn.setStyle(Theme.secondaryBtnStyle());
-        msgBtn.setOnAction(e -> showAlert("Chat Started", "Opening chat window with " + provName));
+        msgBtn.setOnAction(e -> {
+            String provUid = (s.getProviderUid() != null && !s.getProviderUid().trim().isEmpty())
+                ? s.getProviderUid().trim()
+                : ("provider_" + Math.abs(provName.hashCode()));
+            Main.showChatWithUser(provUid, provName, "SERVICE_PROVIDER", s.getId(), "SERVICE", s.getTitle());
+        });
 
         Button callBtn = new Button("📞 Call " + provPhone);
         callBtn.setMaxWidth(Double.MAX_VALUE);
@@ -132,7 +137,7 @@ public class ServiceDetailsPage {
         List<ServiceItem> allServices = DataRepository.getInstance().getServices();
         int added = 0;
         for (ServiceItem serv : allServices) {
-            if (!serv.getId().equals(s.getId())) {
+            if (!serv.getId().equals(s.getId()) && !ServicesPage.isRemovedCategory(serv)) {
                 simCardsBox.getChildren().add(new ListingCardNode(
                     serv.getId(), ListingCardNode.CardType.SERVICE, "POPULAR",
                     serv.getTitle(), "Doorstep Delivery", serv.getPrice(), serv.getSubtitle(),

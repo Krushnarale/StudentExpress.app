@@ -1,7 +1,7 @@
 package com.core2web.util;
 
 public class Theme {
-    // ─── Core Color Palette ──────────────────────────────────
+    // Core Color Palette
     public static final String PRIMARY        = "#4F772D";
     public static final String PRIMARY_DARK   = "#2E4A18";
     public static final String PRIMARY_HOVER  = "#3E6023";
@@ -14,15 +14,15 @@ public class Theme {
     public static final String TEXT_PRIMARY   = "#1A2515";
     public static final String TEXT_MUTED     = "#6B7280";
 
-    // ─── Font Family ─────────────────────────────────────────
+    // Font Family
     public static final String FONT = "'Segoe UI', 'Inter', 'Roboto', 'Arial', sans-serif";
 
-    // ─── Root & Background ───────────────────────────────────
+    // Root & Background
     public static String rootPaneStyle() {
         return "-fx-background-color: " + BG_COLOR + ";";
     }
 
-    // ─── Top Navigation Bar ──────────────────────────────────
+    // Top Navigation Bar
     public static String topBarStyle() {
         return "-fx-background-color: " + CARD_BG + ";"
              + "-fx-border-color: " + BORDER_COLOR + ";"
@@ -30,7 +30,7 @@ public class Theme {
              + "-fx-effect: dropshadow(gaussian, rgba(79,119,45,0.08), 8, 0, 0, 2);";
     }
 
-    // ─── Sidebar ─────────────────────────────────────────────
+    // Sidebar
     public static String sidebarStyle() {
         return "-fx-background-color: linear-gradient(to bottom, " + PRIMARY_DARK + ", #1E3310);"
              + "-fx-border-color: rgba(255, 255, 255, 0.12);"
@@ -45,7 +45,7 @@ public class Theme {
              + "-fx-padding: 4px 0 3px 10px;";
     }
 
-    // ─── Sidebar Buttons ─────────────────────────────────────
+    // Sidebar Buttons
     public static String sidebarBtnStyle(boolean isActive) {
         if (isActive) {
             return "-fx-background-color: " + PRIMARY_LIGHT + ";"
@@ -81,7 +81,7 @@ public class Theme {
              + "-fx-cursor: hand;";
     }
 
-    // ─── Logo Text ───────────────────────────────────────────
+    // Logo Text
     public static String logoTextStyle() {
         return "-fx-fill: " + PRIMARY + ";"
              + "-fx-font-family: " + FONT + ";"
@@ -90,7 +90,7 @@ public class Theme {
              + "-fx-cursor: hand;";
     }
 
-    // ─── Search Field ────────────────────────────────────────
+    // Search Field
     public static String searchFieldStyle() {
         return "-fx-background-color: " + BG_COLOR + ";"
              + "-fx-border-color: " + BORDER_COLOR + ";"
@@ -102,7 +102,7 @@ public class Theme {
              + "-fx-prompt-text-fill: " + TEXT_MUTED + ";";
     }
 
-    // ─── Profile Button ──────────────────────────────────────
+    // Profile Button
     public static String profileBtnStyle() {
         return "-fx-background-color: " + PRIMARY_LIGHT + ";"
              + "-fx-text-fill: " + PRIMARY + ";"
@@ -116,7 +116,7 @@ public class Theme {
              + "-fx-cursor: hand;";
     }
 
-    // ─── Standard Card ───────────────────────────────────────
+    // Standard Card
     public static String cardStyle() {
         return "-fx-background-color: " + CARD_BG + ";"
              + "-fx-border-color: " + BORDER_COLOR + ";"
@@ -125,7 +125,7 @@ public class Theme {
              + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 3);";
     }
 
-    // ─── Elevated Card (more visible shadow) ─────────────────
+    // Elevated Card (more visible shadow)
     public static String elevatedCardStyle() {
         return "-fx-background-color: " + CARD_BG + ";"
              + "-fx-border-color: " + BORDER_COLOR + ";"
@@ -134,7 +134,7 @@ public class Theme {
              + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 18, 0, 0, 6);";
     }
 
-    // ─── Stat Card with colored left accent bar ───────────────
+    // Stat Card with colored left accent bar
     public static String statCardStyle(String accentColor) {
         return "-fx-background-color: " + CARD_BG + ";"
              + "-fx-border-color: " + accentColor + " " + BORDER_COLOR + " " + BORDER_COLOR + " " + accentColor + ";"
@@ -144,7 +144,7 @@ public class Theme {
              + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 12, 0, 0, 4);";
     }
 
-    // ─── Primary Button ──────────────────────────────────────
+    // Primary Button
     public static String primaryBtnStyle() {
         return "-fx-background-color: linear-gradient(to bottom, " + PRIMARY + ", " + PRIMARY_HOVER + ");"
              + "-fx-text-fill: #FFFFFF;"
@@ -157,7 +157,7 @@ public class Theme {
              + "-fx-effect: dropshadow(gaussian, rgba(79,119,45,0.3), 8, 0, 0, 3);";
     }
 
-    // ─── Secondary Button ────────────────────────────────────
+    // Secondary Button
     public static String secondaryBtnStyle() {
         return "-fx-background-color: " + PRIMARY_LIGHT + ";"
              + "-fx-text-fill: " + PRIMARY + ";"
@@ -171,7 +171,7 @@ public class Theme {
              + "-fx-cursor: hand;";
     }
 
-    // ─── Outline Button ──────────────────────────────────────
+    // Outline Button
     public static String outlineBtnStyle() {
         return "-fx-background-color: " + CARD_BG + ";"
              + "-fx-text-fill: " + TEXT_PRIMARY + ";"
@@ -185,7 +185,7 @@ public class Theme {
              + "-fx-cursor: hand;";
     }
 
-    // ─── Active Outline Pill Button ──────────────────────────
+    // Active Outline Pill Button
     public static String activePillBtnStyle() {
         return "-fx-background-color: " + PRIMARY + ";"
              + "-fx-text-fill: white;"
@@ -199,7 +199,7 @@ public class Theme {
              + "-fx-effect: dropshadow(gaussian, rgba(79,119,45,0.3), 6, 0, 0, 2);";
     }
 
-    // ─── Badge ───────────────────────────────────────────────
+    // Badge
     public static String badgeStyle() {
         return "-fx-background-color: " + BADGE_BG + ";"
              + "-fx-text-fill: " + BADGE_TEXT + ";"
@@ -210,7 +210,7 @@ public class Theme {
              + "-fx-background-radius: 20px;";
     }
 
-    // ─── Status Badges ───────────────────────────────────────
+    // Status Badges
     public static String successBadgeStyle() {
         return "-fx-background-color: #E6F4EA; -fx-text-fill: #2E7D32;"
              + "-fx-font-family: " + FONT + ";"
@@ -232,7 +232,7 @@ public class Theme {
              + "-fx-padding: 3px 10px; -fx-background-radius: 20px;";
     }
 
-    // ─── Filter Pill ─────────────────────────────────────────
+    // Filter Pill
     public static String filterPillStyle(boolean isActive) {
         if (isActive) {
             return activePillBtnStyle();
@@ -240,7 +240,7 @@ public class Theme {
         return outlineBtnStyle();
     }
 
-    // ─── Title Text ──────────────────────────────────────────
+    // Title Text
     public static String titleTextStyle() {
         return "-fx-fill: " + TEXT_PRIMARY + ";"
              + "-fx-font-family: " + FONT + ";"
@@ -248,7 +248,7 @@ public class Theme {
              + "-fx-font-weight: 800;";
     }
 
-    // ─── Section Header Text ─────────────────────────────────
+    // Section Header Text
     public static String sectionHeaderStyle() {
         return "-fx-fill: " + TEXT_PRIMARY + ";"
              + "-fx-font-family: " + FONT + ";"
@@ -256,7 +256,7 @@ public class Theme {
              + "-fx-font-weight: 700;";
     }
 
-    // ─── Price Text ──────────────────────────────────────────
+    // Price Text
     public static String priceTextStyle() {
         return "-fx-fill: " + PRIMARY + ";"
              + "-fx-font-family: " + FONT + ";"
@@ -264,14 +264,14 @@ public class Theme {
              + "-fx-font-weight: 800;";
     }
 
-    // ─── Muted Body Text ─────────────────────────────────────
+    // Muted Body Text
     public static String mutedTextStyle() {
         return "-fx-fill: " + TEXT_MUTED + ";"
              + "-fx-font-family: " + FONT + ";"
              + "-fx-font-size: 13px;";
     }
 
-    // ─── Danger Delete Button ────────────────────────────────
+    // Danger Delete Button
     public static String dangerBtnStyle() {
         return "-fx-background-color: #FFF5F5;"
              + "-fx-text-fill: #C62828;"
@@ -285,13 +285,13 @@ public class Theme {
              + "-fx-cursor: hand;";
     }
 
-    // ─── Green Gradient Background Panel ─────────────────────
+    // Green Gradient Background Panel
     public static String gradientPanelStyle() {
         return "-fx-background-color: linear-gradient(to bottom right, " + PRIMARY + ", " + PRIMARY_DARK + ");"
              + "-fx-background-radius: 14px;";
     }
 
-    // ─── Input Field Style ───────────────────────────────────
+    // Input Field Style
     public static String inputFieldStyle() {
         return "-fx-background-color: " + BG_COLOR + ";"
              + "-fx-border-color: " + BORDER_COLOR + ";"
@@ -303,7 +303,7 @@ public class Theme {
              + "-fx-prompt-text-fill: " + TEXT_MUTED + ";";
     }
 
-    // ─── ComboBox Style ──────────────────────────────────────
+    // ComboBox Style
     public static String comboBoxStyle() {
         return "-fx-background-color: " + CARD_BG + ";"
              + "-fx-border-color: " + BORDER_COLOR + ";"

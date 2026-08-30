@@ -84,7 +84,6 @@ public class RoomItem {
         this.availabilityStatus = availabilityStatus != null ? availabilityStatus : "AVAILABLE";
     }
 
-
     public String getId() { return id; }
     public String getRoomId() { return id; }
     public String getTitle() { return title; }

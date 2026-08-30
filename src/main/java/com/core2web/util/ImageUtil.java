@@ -65,7 +65,7 @@ public class ImageUtil {
                     cleanName = cleanName.substring(0, cleanName.lastIndexOf('.'));
                 }
                 String folder = cleanName.startsWith("room_") ? "roomImages" : (cleanName.startsWith("splash_") || cleanName.startsWith("welcome_") ? "appAssets" : "productImages");
-                
+
                 String cdnUrl = "https://res.cloudinary.com/dm9hshdz/image/upload/" + folder + "/" + cleanName + ext;
                 Image img = new Image(cdnUrl);
                 if (!img.isError()) return img;
@@ -235,7 +235,4 @@ public class ImageUtil {
         return null;
     }
 }
-
-
-
 

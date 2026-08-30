@@ -24,15 +24,11 @@ public class WelcomePage {
 
     public StackPane getPageNode(Runnable callbackAction) {
 
-        // ─────────────────────────────────────────────────────────
         // ROOT
-        // ─────────────────────────────────────────────────────────
         StackPane root = new StackPane();
         root.setStyle("-fx-background-color: #FAF6EE;");
 
-        // ─────────────────────────────────────────────────────────
         // LAYER 1 — FULL-SCREEN BACKGROUND IMAGE (no translate/shift)
-        // ─────────────────────────────────────────────────────────
         ImageView bgView = new ImageView();
         bgView.setPreserveRatio(false);
         bgView.setSmooth(true);
@@ -48,9 +44,7 @@ public class WelcomePage {
         StackPane.setAlignment(bgView, Pos.CENTER);
         root.getChildren().add(bgView);
 
-        // ─────────────────────────────────────────────────────────
         // LAYER 2 — SOFT THEME-GREEN BOTTOM GRADIENT
-        // ─────────────────────────────────────────────────────────
         Region bottomFade = new Region();
 
         bottomFade.prefWidthProperty().bind(root.widthProperty());
@@ -77,16 +71,14 @@ public class WelcomePage {
 
         root.getChildren().add(bottomFade);
 
-        // ─────────────────────────────────────────────────────────
         // LAYER 3 — MAIN CONTENT VBox (fills entire root)
-        // ─────────────────────────────────────────────────────────
         VBox content = new VBox(0);
         content.setAlignment(Pos.TOP_CENTER);
         content.prefWidthProperty().bind(root.widthProperty());
         content.prefHeightProperty().bind(root.heightProperty());
         StackPane.setAlignment(content, Pos.TOP_CENTER);
 
-        // --- Logo row (left-aligned) ---
+        // Logo row (left-aligned)
         HBox logoRow = new HBox();
         logoRow.setAlignment(Pos.CENTER_LEFT);
         logoRow.setPadding(new Insets(26, 0, 0, 30));
@@ -99,13 +91,13 @@ public class WelcomePage {
         );
         logoRow.getChildren().add(logo);
 
-        // --- Gap between logo and heading (~7% of window height) ---
+        // Gap between logo and heading (~7% of window height)
         Region topGap = new Region();
         topGap.prefHeightProperty().bind(root.heightProperty().multiply(0.07));
         topGap.setMinHeight(Region.USE_PREF_SIZE);
         topGap.setMaxHeight(Region.USE_PREF_SIZE);
 
-        // --- Heading ---
+        // Heading
         Label heading = new Label("Everything a student needs,\nin one place.");
         heading.setAlignment(Pos.CENTER);
         heading.setMaxWidth(Double.MAX_VALUE);
@@ -119,13 +111,13 @@ public class WelcomePage {
         );
         VBox.setMargin(heading, new Insets(0, 24, 0, 24));
 
-        // --- Gap between heading and description ---
+        // Gap between heading and description
         Region descGap = new Region();
         descGap.setPrefHeight(12);
         descGap.setMinHeight(12);
         descGap.setMaxHeight(12);
 
-        // --- Description ---
+        // Description
         Label description = new Label(
             "Find affordable rooms, buy & sell student items, find roommates,\n" +
             "and book daily student services near your college campus."
@@ -141,11 +133,11 @@ public class WelcomePage {
         );
         VBox.setMargin(description, new Insets(0, 24, 0, 24));
 
-        // --- Flexible spacer: takes up the students zone ---
+        // Flexible spacer: takes up the students zone
         Region flexSpacer = new Region();
         VBox.setVgrow(flexSpacer, Priority.ALWAYS);
 
-        // --- Carousel dots ---
+        // Carousel dots
         HBox dotsBox = new HBox(8);
         dotsBox.setAlignment(Pos.CENTER);
         dotsBox.getChildren().addAll(
@@ -154,13 +146,13 @@ public class WelcomePage {
             new Circle(5.5, Color.web("#A8C98E"))
         );
 
-        // --- Gap between dots and button ---
+        // Gap between dots and button
         Region btnGap = new Region();
         btnGap.setPrefHeight(12);
         btnGap.setMinHeight(12);
         btnGap.setMaxHeight(12);
 
-        // --- Get Started button ---
+        // Get Started button
         Button btn = new Button("Get Started  →");
         btn.setPrefWidth(285);
         btn.setPrefHeight(57);

@@ -36,9 +36,7 @@ public class SplashPage extends Application {
         StackPane rootStack = new StackPane();
         rootStack.setStyle("-fx-background-color: #020B18;");
 
-        // ----------------------------------------------------
         // FULL BACKGROUND (Split organic wave with study desk photo)
-        // ----------------------------------------------------
         ImageView bgView = new ImageView();
         File bgFile = new File("assets/image/splash_full_bg.jpg");
         if (bgFile.exists()) {
@@ -50,9 +48,7 @@ public class SplashPage extends Application {
         }
         rootStack.getChildren().add(bgView);
 
-        // ----------------------------------------------------
         // FOREGROUND OVERLAY
-        // ----------------------------------------------------
         BorderPane contentPane = new BorderPane();
         contentPane.setPadding(new Insets(50, 60, 50, 60));
 
@@ -84,9 +80,7 @@ public class SplashPage extends Application {
         contentPane.setCenter(centerBox);
         rootStack.getChildren().add(contentPane);
 
-        // ----------------------------------------------------
         // AUTOMATIC PROGRESS & TRANSITION TIMER
-        // ----------------------------------------------------
         progressValue = 0.0;
         Timeline progressTimeline = new Timeline();
         KeyFrame keyFrame = new KeyFrame(Duration.millis(30), event -> {

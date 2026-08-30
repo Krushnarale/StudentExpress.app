@@ -50,6 +50,7 @@ public class Main {
     private static ServiceProviderDashboard serviceProviderDashboard = new ServiceProviderDashboard();
     private static AdminDashboard adminDashboard = new AdminDashboard();
     private static UserSelectionPage userSelectionPage = new UserSelectionPage();
+    private static com.core2web.view.messages.MessagesPage messagesPage = new com.core2web.view.messages.MessagesPage();
 
     public static void initApp(Stage stage) {
         // Initialize the backend before showing the updated UI.
@@ -142,6 +143,11 @@ public class Main {
     }
 
     public static void showHomePage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("HOME", homePage.getPageNode(
             () -> showRentPage(),
             () -> showBuySellPage(),
@@ -153,6 +159,11 @@ public class Main {
     }
 
     public static void showRentPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         new Thread(() -> DataRepository.getInstance().syncFromFirestore()).start();
         mainShell.showShellContent("RENT", rentPage.getPageNode(
             room -> showRoomDetailsPage(room),
@@ -170,6 +181,11 @@ public class Main {
     }
 
     public static void showBuySellPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         new Thread(() -> DataRepository.getInstance().syncFromFirestore()).start();
         mainShell.showShellContent("BUY_SELL", buySellPage.getPageNode(
             product -> showProductDetailsPage(product),
@@ -191,6 +207,11 @@ public class Main {
     }
 
     public static void showRoommateFinderPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         new Thread(() -> DataRepository.getInstance().syncFromFirestore()).start();
         mainShell.showShellContent("ROOMMATES", roommateFinderPage.getPageNode(
             roommate -> showRoommateDetailsPage(roommate),
@@ -220,6 +241,11 @@ public class Main {
     }
 
     public static void showServicesPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         new Thread(() -> DataRepository.getInstance().syncFromFirestore()).start();
         mainShell.showShellContent("SERVICES", servicesPage.getPageNode(
             service -> showServiceDetailsPage(service),
@@ -244,6 +270,11 @@ public class Main {
     }
 
     public static void showProfilePage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("PROFILE", profilePage.getPageNode(
             () -> showHomePage(),
             () -> showRentPage(),
@@ -254,14 +285,29 @@ public class Main {
     }
 
     public static void showMyBookingsPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("BOOKINGS", myBookingsPage.getPageNode(() -> showProfilePage()));
     }
 
     public static void showMyRentalsPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("MY_RENTALS", myRentalsPage.getPageNode(() -> showRentPage()));
     }
 
     public static void showMyPostsPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("MY_POSTS", myPostsPage.getPageNode(
             () -> showProfilePage(),
             () -> showPostItemPage()
@@ -269,15 +315,100 @@ public class Main {
     }
 
     public static void showMyOrdersPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("ORDERS", myOrdersPage.getPageNode(() -> showProfilePage()));
     }
 
     public static void showSavedItemsPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("SAVED", savedItemsPage.getPageNode(() -> showProfilePage()));
     }
 
     public static void showWalletPage() {
+        if (!com.core2web.util.AuthGuard.canAccess(User.Role.STUDENT)) {
+            com.core2web.util.AuthGuard.showAccessDeniedDialog(User.Role.STUDENT, com.core2web.util.SessionManager.getInstance().getRole());
+            redirectToCurrentRoleDashboard();
+            return;
+        }
         mainShell.showShellContent("WALLET", walletPage.getPageNode(() -> showProfilePage()));
+    }
+
+    public static void showMessagesPage() {
+        User.Role role = com.core2web.util.SessionManager.getInstance().getRole();
+        if (role == null) {
+            User u = com.core2web.repository.DataRepository.getInstance().getCurrentUser();
+            if (u != null) role = u.getRole();
+        }
+        if (role == null) role = User.Role.STUDENT;
+
+        switch (role) {
+            case OWNER:
+                mainShell.showFullContent(messagesPage.getPageNode(() -> showOwnerDashboard()));
+                break;
+            case SELLER:
+                mainShell.showFullContent(messagesPage.getPageNode(() -> showSellerDashboard()));
+                break;
+            case SERVICE_PROVIDER:
+                mainShell.showFullContent(messagesPage.getPageNode(() -> showServiceProviderDashboard()));
+                break;
+            case ADMIN:
+                mainShell.showFullContent(messagesPage.getPageNode(() -> showAdminDashboard()));
+                break;
+            case STUDENT:
+            default:
+                mainShell.showShellContent("MESSAGES", messagesPage.getPageNode(() -> showHomePage()));
+                break;
+        }
+    }
+
+    public static void showChatWithUser(String otherUserId, String otherUserName, String otherUserRole, String listingId, String listingType, String listingTitle) {
+        User currentUser = com.core2web.repository.DataRepository.getInstance().getCurrentUser();
+        if (currentUser == null) currentUser = com.core2web.util.SessionManager.getInstance().getCurrentUser();
+        String currentUid = (currentUser != null && currentUser.getUid() != null) ? currentUser.getUid() : "user_guest";
+        String currentName = (currentUser != null && currentUser.getName() != null) ? currentUser.getName() : "User";
+        String currentRole = (currentUser != null && currentUser.getRole() != null) ? currentUser.getRole().name() : "STUDENT";
+
+        String targetUid = (otherUserId != null && !otherUserId.trim().isEmpty()) ? otherUserId.trim() : ("user_" + Math.abs(otherUserName != null ? otherUserName.hashCode() : 100));
+        String targetName = (otherUserName != null && !otherUserName.trim().isEmpty() && !otherUserName.equals("Not provided")) ? otherUserName.trim() : "User";
+        String targetRole = (otherUserRole != null && !otherUserRole.trim().isEmpty()) ? otherUserRole.trim() : "STUDENT";
+
+        com.core2web.dao.MessageDAO msgDAO = new com.core2web.dao.MessageDAOImpl();
+        com.core2web.model.Conversation conv = msgDAO.getOrCreateConversation(
+            currentUid, currentName, currentRole,
+            targetUid, targetName, targetRole,
+            listingId, listingType, listingTitle
+        );
+
+        User.Role role = com.core2web.util.SessionManager.getInstance().getRole();
+        if (role == null && currentUser != null) role = currentUser.getRole();
+        if (role == null) role = User.Role.STUDENT;
+
+        switch (role) {
+            case OWNER:
+                mainShell.showFullContent(messagesPage.getPageNodeWithActiveConversation(conv, () -> showOwnerDashboard()));
+                break;
+            case SELLER:
+                mainShell.showFullContent(messagesPage.getPageNodeWithActiveConversation(conv, () -> showSellerDashboard()));
+                break;
+            case SERVICE_PROVIDER:
+                mainShell.showFullContent(messagesPage.getPageNodeWithActiveConversation(conv, () -> showServiceProviderDashboard()));
+                break;
+            case ADMIN:
+                mainShell.showFullContent(messagesPage.getPageNodeWithActiveConversation(conv, () -> showAdminDashboard()));
+                break;
+            case STUDENT:
+            default:
+                mainShell.showShellContent("MESSAGES", messagesPage.getPageNodeWithActiveConversation(conv, () -> showHomePage()));
+                break;
+        }
     }
 
     public static void redirectToCurrentRoleDashboard() {

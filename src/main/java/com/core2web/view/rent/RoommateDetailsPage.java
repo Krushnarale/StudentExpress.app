@@ -54,9 +54,7 @@ public class RoommateDetailsPage {
 
         HBox columnsBox = new HBox(24);
 
-        // ─────────────────────────────────────────────────────────
         // LEFT COLUMN: Detailed Roommate Profile & Academic Info
-        // ─────────────────────────────────────────────────────────
         VBox leftColumn = new VBox(18);
         HBox.setHgrow(leftColumn, Priority.ALWAYS);
 
@@ -164,9 +162,7 @@ public class RoommateDetailsPage {
 
         leftColumn.getChildren().addAll(profileCard, lifestyleCard, bioCard);
 
-        // ─────────────────────────────────────────────────────────
         // RIGHT COLUMN: Sticky Connect / Action Card
-        // ─────────────────────────────────────────────────────────
         VBox rightColumn = new VBox(20);
         rightColumn.setPrefWidth(330);
 
@@ -240,7 +236,13 @@ public class RoommateDetailsPage {
             Button msgBtn = new Button("💬 Send Direct Message");
             msgBtn.setMaxWidth(Double.MAX_VALUE);
             msgBtn.setStyle(Theme.secondaryBtnStyle());
-            msgBtn.setOnAction(e -> showAlert("Chat", "Opening messaging channel with " + roommate.getName()));
+            msgBtn.setOnAction(e -> {
+                String rmUid = (roommate.getUserUid() != null && !roommate.getUserUid().trim().isEmpty())
+                    ? roommate.getUserUid().trim()
+                    : ("student_" + Math.abs(roommate.getName().hashCode()));
+                String contextTitle = roommate.getAccommodationType() != null ? ("Looking for " + roommate.getAccommodationType() + " in " + roommate.getLocation()) : ("Roommate Profile - " + roommate.getName());
+                Main.showChatWithUser(rmUid, roommate.getName(), "STUDENT", roommate.getId(), "ROOMMATE", contextTitle);
+            });
 
             Button callBtn = new Button("📞 Call Roommate");
             callBtn.setMaxWidth(Double.MAX_VALUE);
@@ -253,9 +255,7 @@ public class RoommateDetailsPage {
         rightColumn.getChildren().add(actionCard);
         columnsBox.getChildren().addAll(leftColumn, rightColumn);
 
-        // ─────────────────────────────────────────────────────────
         // SIMILAR ROOMMATES SECTION AT BOTTOM
-        // ─────────────────────────────────────────────────────────
         VBox similarSection = new VBox(14);
         Text simTitle = new Text("Other Potential Roommates");
         simTitle.setStyle(Theme.sectionHeaderStyle());

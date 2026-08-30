@@ -341,26 +341,75 @@ public class DataRepository {
         // Roommates - strictly loaded from Firestore / user registrations
         // (No hardcoded sample roommate profiles)
 
-        // Seed Services (ALL 5 Services Restored!)
+        // Seed Services across 5 Campus Categories (Multiple providers per category)
+        // 1. Laundry Providers
         services.add(new ServiceItem(
-            "s1", "🧺", "Laundry", "Laundry", "Clean & Fresh Clothes",
-            "₹ 15 / kg", "Express Wash Hub", "+91 98811 22334", "Doorstep pickup & drop, sanitized steam iron."
+            "s1_1", "🧺", "Express Hostel Laundry & Steam Iron", "Laundry", "Doorstep pickup & 24h delivery",
+            "₹ 15 / kg", "Express Wash Hub", "+91 98811 22334", "Complete wash & fold, sanitized steam ironing with doorstep delivery within 24 hours."
         ));
         services.add(new ServiceItem(
-            "s2", "🍱", "Tiffin / Mess", "Mess", "Healthy & Hygienic Meals",
-            "₹ 2,800 / month", "Annapurna Home Tiffin", "+91 94230 11223", "Pure veg & non-veg home cooked meal service."
+            "s1_2", "🧺", "Sparkle Cleaners & Dry Wash", "Laundry", "Premium dry clean & delicate wash",
+            "₹ 25 / kg", "Sparkle Clean Laundry", "+91 98822 33445", "Special student discount on bulk laundry, blazers, lab coats, and bedsheets."
         ));
         services.add(new ServiceItem(
-            "s3", "🧹", "Cleaning", "Cleaning", "Home & Room Cleaning",
-            "₹ 350 / session", "CleanNest Services", "+91 95522 33445", "Deep room cleaning, bathroom sanitization."
+            "s1_3", "🧺", "StudentSaver Wash Station", "Laundry", "Monthly student subscription pack",
+            "₹ 499 / month", "StudentSaver Laundry", "+91 98833 44556", "Includes 4 washes a month up to 20kg with free fabric conditioner and express fold."
+        ));
+
+        // 2. Tiffin / Mess Providers
+        services.add(new ServiceItem(
+            "s2_1", "🍱", "Annapurna Home Tiffin Service", "Tiffin / Mess", "Homestyle pure veg & hygienic meals",
+            "₹ 2,500 / month", "Annapurna Home Tiffin", "+91 94230 11223", "Daily hot tiffin with 4 rotis, 2 vegetables, dal, rice, salad, and Sunday special sweet."
         ));
         services.add(new ServiceItem(
-            "s4", "📶", "Wi-Fi Provider", "Wi-Fi", "High Speed Internet",
-            "₹ 499 / month", "SpeedNet Broadband", "+91 96633 44556", "100 Mbps fiber connection for student flats."
+            "s2_2", "🍱", "Royal Feast Student Mess", "Tiffin / Mess", "Unlimited Veg & Non-Veg Thali",
+            "₹ 3,200 / month", "Royal Student Mess", "+91 94231 22334", "Buffet dining with unlimited servings, North Indian & Maharashtrian dishes near campus."
         ));
         services.add(new ServiceItem(
-            "s5", "🖨️", "Printing & Xerox", "Printing", "Documents & Xerox",
-            "₹ 2 / page", "QuickPrint Studio", "+91 97744 55667", "Printouts, binding, drafter prints delivery."
+            "s2_3", "🍱", "HealthyBites Diet & Fitness Tiffin", "Tiffin / Mess", "High protein low-oil student meals",
+            "₹ 2,800 / month", "HealthyBites Kitchen", "+91 94232 33445", "Tailored student meal plan with sprouts, paneer, brown rice, curd and fresh veggies."
+        ));
+
+        // 3. Cleaning Providers
+        services.add(new ServiceItem(
+            "s3_1", "🧹", "CleanNest PG & Room Deep Cleaning", "Cleaning", "Deep Room Cleaning & Sanitization",
+            "₹ 350 / session", "CleanNest Services", "+91 95522 33445", "Floor scrubbing, bathroom acid wash, cobweb removal, and balcony cleaning."
+        ));
+        services.add(new ServiceItem(
+            "s3_2", "🧹", "QuickMaid Campus Care", "Cleaning", "Weekly Hostel Housekeeping",
+            "₹ 599 / month", "QuickMaid Care", "+91 95523 44556", "Weekly scheduled visits for dusting, mopping, bedsheet changes and trash disposal."
+        ));
+        services.add(new ServiceItem(
+            "s3_3", "🧹", "SanitizePro Bathroom & Room Polish", "Cleaning", "Bathroom Deep Scrub & Odor Fix",
+            "₹ 299 / session", "SanitizePro Pune", "+91 95524 55667", "Specialized washroom deep scrub, tile whitening, tap descaling and odor elimination."
+        ));
+
+        // 4. Wi-Fi Providers
+        services.add(new ServiceItem(
+            "s4_1", "📶", "SpeedNet Fiber Broadband", "Wi-Fi", "100 Mbps Unlimited Fiber Internet",
+            "₹ 499 / month", "SpeedNet Broadband", "+91 96633 44556", "100 Mbps fiber connection with zero installation charges and free dual-band Wi-Fi router."
+        ));
+        services.add(new ServiceItem(
+            "s4_2", "📶", "AirFiber Ultra-Fast Campus Wi-Fi", "Wi-Fi", "200 Mbps Dedicated Student Line",
+            "₹ 699 / month", "AirFiber Network", "+91 96634 55667", "Low ping dedicated line for coding, video lectures, online tests & streaming."
+        ));
+        services.add(new ServiceItem(
+            "s4_3", "📶", "HostelLink Wireless Hotspot", "Wi-Fi", "Plug & Play Portable Wi-Fi Dongle",
+            "₹ 399 / month", "HostelLink Tech", "+91 96635 66778", "Portable wireless 4G/5G router with unlimited daily data for hostel rooms."
+        ));
+
+        // 5. Repair & Maintenance Providers
+        services.add(new ServiceItem(
+            "s5_1", "🛠️", "QuickFix Home & Appliance Repair", "Repair & Maintenance", "Electrician, Fan & Cooler Repair",
+            "₹ 149 / visit", "QuickFix Services", "+91 97744 55667", "Instant doorstep electrician service for room fans, coolers, tube lights and sockets."
+        ));
+        services.add(new ServiceItem(
+            "s5_2", "🛠️", "Campus Plumb & Tap Repairs", "Repair & Maintenance", "Plumbing & Geyser Maintenance",
+            "₹ 199 / visit", "Campus Plumber Hub", "+91 97745 66778", "Fast fixing for leaking taps, flush tanks, washbasin pipes and water heaters."
+        ));
+        services.add(new ServiceItem(
+            "s5_3", "🛠️", "GadgetDoc Laptop & Phone Care", "Repair & Maintenance", "Laptop Hardware & OS Fixes",
+            "₹ 249 + parts", "GadgetDoc Tech Care", "+91 97746 77889", "On-site laptop screen, keyboard replacement, SSD upgrade, thermal paste & OS formatting."
         ));
 
         // Seed Saved Items

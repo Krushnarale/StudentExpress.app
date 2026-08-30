@@ -74,6 +74,7 @@ public class GlobalSearchPopup extends VBox {
         List<ServiceItem> services = repo.getServices();
         int serviceHits = 0;
         for (ServiceItem s : services) {
+            if (com.core2web.view.services.ServicesPage.isRemovedCategory(s)) continue;
             if (s.getTitle().toLowerCase().contains(q) || s.getCategory().toLowerCase().contains(q) || s.getSubtitle().toLowerCase().contains(q)) {
                 resultsBox.getChildren().add(createSearchRow(IconFactory.PATH_WRENCH, s.getTitle(), "Services · " + s.getCategory(), s.getPrice(), () -> Main.showServiceDetailsPage(s)));
                 serviceHits++;

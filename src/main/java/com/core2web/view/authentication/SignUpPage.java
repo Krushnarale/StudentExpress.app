@@ -267,34 +267,7 @@ public class SignUpPage {
             if (onSignUpSuccess != null) onSignUpSuccess.accept(selectedRole);
         });
 
-        // 8. Social Divider
-        HBox dividerBox = new HBox(10);
-        dividerBox.setAlignment(Pos.CENTER);
-        Region line1 = new Region();
-        HBox.setHgrow(line1, Priority.ALWAYS);
-        line1.setPrefHeight(1);
-        line1.setStyle("-fx-background-color: " + Theme.BORDER_COLOR + ";");
-        Text orText = new Text("OR");
-        orText.setStyle("-fx-fill: " + Theme.TEXT_MUTED + "; -fx-font-family: " + Theme.FONT + "; -fx-font-size: 11px; -fx-font-weight: 700;");
-        Region line2 = new Region();
-        HBox.setHgrow(line2, Priority.ALWAYS);
-        line2.setPrefHeight(1);
-        line2.setStyle("-fx-background-color: " + Theme.BORDER_COLOR + ";");
-        dividerBox.getChildren().addAll(line1, orText, line2);
-
-        // 9. Sign up with Google Button
-        Button googleBtn = new Button("Sign up with Google");
-        googleBtn.setGraphic(IconFactory.getGoogleLogo(18));
-        googleBtn.setGraphicTextGap(10);
-        googleBtn.setMaxWidth(Double.MAX_VALUE);
-        googleBtn.setStyle(Theme.secondaryBtnStyle()
-            + "-fx-font-size: 12.5px;"
-            + "-fx-padding: 9px;"
-            + "-fx-background-radius: 12px;"
-            + "-fx-border-radius: 12px;"
-        );
-
-        // 10. Footer navigation link to Sign In
+        // 8. Footer navigation link to Sign In
         HBox footerBox = new HBox(6);
         footerBox.setAlignment(Pos.CENTER);
         Text hasAccountText = new Text("Already have an account?");
@@ -310,7 +283,7 @@ public class SignUpPage {
         card.getChildren().addAll(
             navRow, titleBox, nameGroup, emailGroup, phoneGroup,
             passGroup, confirmGroup, termsCheck, errorLbl,
-            signUpBtn, dividerBox, googleBtn, footerBox
+            signUpBtn, footerBox
         );
 
         rightWrapper.getChildren().add(card);

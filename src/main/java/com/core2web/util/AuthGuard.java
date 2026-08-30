@@ -54,13 +54,6 @@ public class AuthGuard {
 
             boolean accessGranted = (activeRole == User.Role.SELLER || sellerEnabled || sellerProfileFound);
 
-            System.out.println("========== SELLER ACCESS ==========");
-            System.out.println("Firebase UID = " + (uid.isEmpty() ? "Not authenticated" : uid));
-            System.out.println("Seller profile found = " + sellerProfileFound);
-            System.out.println("Seller enabled = " + sellerEnabled);
-            System.out.println("Access granted = " + accessGranted);
-            System.out.println("==========================================");
-
             return accessGranted;
         }
 

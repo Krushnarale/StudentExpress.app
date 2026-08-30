@@ -85,20 +85,13 @@ public class SellerDashboard {
             }
         }
 
-        System.out.println("========== SELLER ACCESS ==========");
-        System.out.println("Firebase UID = " + (sellerUid.isEmpty() ? "Not authenticated" : sellerUid));
-        System.out.println("Seller profile found = " + (sellerProfile != null));
-        System.out.println("Seller enabled = " + (currentUser.isSellerEnabled()));
         System.out.println("Access granted = true");
-        System.out.println("==========================================");
 
         VBox rootBox = new VBox(18);
         rootBox.setPadding(new Insets(24, 36, 30, 36));
         rootBox.setMaxWidth(Double.MAX_VALUE);
 
-        // ─────────────────────────────────────────────────────────
         // HEADER ROW: Title, Role Badge, Logout (NO Back to App)
-        // ─────────────────────────────────────────────────────────
         HBox headerRow = new HBox(16);
         headerRow.setAlignment(Pos.CENTER_LEFT);
 
@@ -130,7 +123,6 @@ public class SellerDashboard {
         Button studentPortalBtn = new Button("🎓 Switch to Student Portal");
         studentPortalBtn.setStyle(Theme.primaryBtnStyle() + " -fx-font-size: 12px; -fx-padding: 6px 14px; -fx-font-weight: 700;");
         studentPortalBtn.setOnAction(e -> {
-            System.out.println("[NAVIGATION] Switching from Seller Workspace to Student Portal");
             Main.showHomePage();
         });
 
@@ -151,9 +143,7 @@ public class SellerDashboard {
 
         headerRow.getChildren().addAll(iconBox, titleBox, studentPortalBtn, logoutBtn);
 
-        // ─────────────────────────────────────────────────────────
         // TAB SWITCHER ROW
-        // ─────────────────────────────────────────────────────────
         HBox tabRow = new HBox(8);
         tabRow.setAlignment(Pos.CENTER_LEFT);
         tabRow.setPadding(new Insets(4, 0, 8, 0));
@@ -168,8 +158,11 @@ public class SellerDashboard {
         Button btnRequests = new Button(reqBtnLabel);
 
         Button btnProfile = new Button("👤 Seller Profile");
+        Button btnMessages = new Button("💬 Messages");
+        btnMessages.setStyle(Theme.secondaryBtnStyle() + " -fx-font-size: 12px; -fx-padding: 7px 14px;");
+        btnMessages.setOnAction(e -> Main.showMessagesPage());
 
-        tabRow.getChildren().addAll(btnDashboard, btnListings, btnAddItem, btnRequests, btnProfile);
+        tabRow.getChildren().addAll(btnDashboard, btnListings, btnAddItem, btnRequests, btnProfile, btnMessages);
 
         // Content Area Container
         StackPane contentContainer = new StackPane();
@@ -233,9 +226,7 @@ public class SellerDashboard {
         return scrollPane;
     }
 
-    // ─────────────────────────────────────────────────────────────
     // 1. DASHBOARD OVERVIEW VIEW
-    // ─────────────────────────────────────────────────────────────
     private Node createDashboardOverview(String sellerUid, SellerProfile profile, Runnable onNavigateAdd, Runnable onNavigateListings, Runnable onNavigateRequests) {
         VBox box = new VBox(20);
         box.setMaxWidth(Double.MAX_VALUE);
@@ -300,9 +291,7 @@ public class SellerDashboard {
         return box;
     }
 
-    // ─────────────────────────────────────────────────────────────
     // 2. MY LISTINGS VIEW (ACTIVE, SOLD, ALL)
-    // ─────────────────────────────────────────────────────────────
     private Node createMyListingsView(String sellerUid, Runnable onRefresh, Runnable onNavigateAdd) {
         VBox container = new VBox(16);
         container.setMaxWidth(Double.MAX_VALUE);
@@ -499,9 +488,7 @@ public class SellerDashboard {
         return card;
     }
 
-    // ─────────────────────────────────────────────────────────────
     // 3. ADD NEW ITEM FORM (Scrollable Form)
-    // ─────────────────────────────────────────────────────────────
     private Node createAddItemView(String sellerUid, SellerProfile profile, Runnable onFinish) {
         VBox container = new VBox(18);
         container.setMaxWidth(760);
@@ -753,13 +740,6 @@ public class SellerDashboard {
             // Save to Firestore
             new Thread(() -> {
                 boolean saved = new ProductDAOImpl().save(newItem);
-                System.out.println("========== SELLER LISTING ==========");
-                System.out.println("Firebase UID = " + sellerUid);
-                System.out.println("Seller ID = " + newItem.getSellerUid());
-                System.out.println("Listing ID = " + newItem.getId());
-                System.out.println("Category = " + newItem.getCategory());
-                System.out.println("Firebase write successful = " + saved);
-                System.out.println("==========================================");
             }).start();
 
             // Save to DataRepository
@@ -833,9 +813,7 @@ public class SellerDashboard {
         });
     }
 
-    // ─────────────────────────────────────────────────────────────
     // 4. INCOMING REQUESTS VIEW
-    // ─────────────────────────────────────────────────────────────
     private Node createRequestsView(String sellerUid, Runnable onRefresh) {
         VBox container = new VBox(16);
         container.setMaxWidth(Double.MAX_VALUE);
@@ -920,6 +898,13 @@ public class SellerDashboard {
                 HBox actions = new HBox(10);
                 actions.setAlignment(Pos.CENTER_RIGHT);
 
+                Button chatBuyerBtn = new Button("💬 Message Buyer");
+                chatBuyerBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-font-size: 12px; -fx-padding: 6px 14px;");
+                chatBuyerBtn.setOnAction(e -> {
+                    String buyerUid = (o.getBuyerUid() != null && !o.getBuyerUid().isEmpty()) ? o.getBuyerUid() : "buyer_" + Math.abs(o.getBuyerName().hashCode());
+                    Main.showChatWithUser(buyerUid, o.getBuyerName(), "STUDENT", o.getProductId(), "PRODUCT", o.getItemName());
+                });
+
                 Button acceptBtn = new Button("✓ Accept Request");
                 acceptBtn.setStyle(Theme.primaryBtnStyle() + " -fx-font-size: 12px; -fx-padding: 6px 14px;");
                 acceptBtn.setOnAction(e -> {
@@ -966,11 +951,18 @@ public class SellerDashboard {
                     if (onRefresh != null) onRefresh.run();
                 });
 
-                actions.getChildren().addAll(acceptBtn, rejectBtn, soldBtn);
+                actions.getChildren().addAll(chatBuyerBtn, acceptBtn, rejectBtn, soldBtn);
                 card.getChildren().add(actions);
             } else if ("ACCEPTED".equalsIgnoreCase(status)) {
                 HBox actions = new HBox(10);
                 actions.setAlignment(Pos.CENTER_RIGHT);
+
+                Button chatBuyerBtn = new Button("💬 Message Buyer");
+                chatBuyerBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-font-size: 12px; -fx-padding: 6px 14px;");
+                chatBuyerBtn.setOnAction(e -> {
+                    String buyerUid = (o.getBuyerUid() != null && !o.getBuyerUid().isEmpty()) ? o.getBuyerUid() : "buyer_" + Math.abs(o.getBuyerName().hashCode());
+                    Main.showChatWithUser(buyerUid, o.getBuyerName(), "STUDENT", o.getProductId(), "PRODUCT", o.getItemName());
+                });
 
                 Button completeBtn = new Button("🏷️ Mark as Completed & Sold");
                 completeBtn.setStyle(Theme.primaryBtnStyle() + " -fx-font-size: 12px; -fx-padding: 6px 14px;");
@@ -997,7 +989,7 @@ public class SellerDashboard {
                     showAlert("Deal Completed!", "'" + o.getItemName() + "' marked as Completed & Sold.");
                     if (onRefresh != null) onRefresh.run();
                 });
-                actions.getChildren().add(completeBtn);
+                actions.getChildren().addAll(chatBuyerBtn, completeBtn);
                 card.getChildren().add(actions);
             }
 
@@ -1007,9 +999,7 @@ public class SellerDashboard {
         return container;
     }
 
-    // ─────────────────────────────────────────────────────────────
     // 5. SELLER PROFILE VIEW (Edit, Photo upload/remove)
-    // ─────────────────────────────────────────────────────────────
     private Node createProfileView(SellerProfile profile, Runnable onRefresh) {
         VBox container = new VBox(20);
         container.setMaxWidth(760);

@@ -1,5 +1,6 @@
 package com.core2web.view.rent;
 
+import com.core2web.Main;
 import com.core2web.dao.RoomDAOImpl;
 import com.core2web.dao.UserDAOImpl;
 import com.core2web.model.Rental;
@@ -48,7 +49,7 @@ public class OwnerDashboard {
         }
         final User currentUser = resolvedUser;
 
-        // ─── Top Bar (Without Back to App button) ───────────────
+        // Top Bar (Without Back to App button)
         HBox topBar = new HBox(20);
         topBar.setAlignment(Pos.CENTER_LEFT);
         topBar.setPadding(new Insets(16, 30, 16, 30));
@@ -67,6 +68,10 @@ public class OwnerDashboard {
         logoRow.getChildren().addAll(roleBadge, logoTxt);
         HBox.setHgrow(logoRow, Priority.ALWAYS);
 
+        Button messagesBtn = new Button("💬 Messages");
+        messagesBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-padding: 7px 14px;");
+        messagesBtn.setOnAction(e -> Main.showMessagesPage());
+
         Button logoutBtn = new Button("Logout");
         logoutBtn.setStyle(Theme.dangerBtnStyle());
         logoutBtn.setOnAction(e -> {
@@ -81,10 +86,10 @@ public class OwnerDashboard {
             });
         });
 
-        topBar.getChildren().addAll(logoRow, logoutBtn);
+        topBar.getChildren().addAll(logoRow, messagesBtn, logoutBtn);
         rootPane.setTop(topBar);
 
-        // ─── Main Content ───────────────────────────────────────
+        // Main Content
         VBox mainContent = new VBox(24);
         mainContent.setPadding(new Insets(28, 40, 28, 40));
 
@@ -97,9 +102,6 @@ public class OwnerDashboard {
         headingBox.getChildren().addAll(heading, sub);
 
         // Print OWNER DEBUG on workspace initialization
-        System.out.println("[OWNER DEBUG] Firebase UID = " + (currentUser != null ? currentUser.getUid() : "null"));
-        System.out.println("[OWNER DEBUG] Database user ID = " + (currentUser != null ? currentUser.getId() : "null"));
-        System.out.println("[OWNER DEBUG] Role = " + (currentUser != null ? currentUser.getRole() : "null"));
 
         // Container for refreshing dynamic parts
         final Runnable[] refreshAll = new Runnable[1];
@@ -122,7 +124,7 @@ public class OwnerDashboard {
             createStatCard(IconFactory.PATH_MONEY, "₹ 52,000", "Monthly Revenue", "#10B981")
         );
 
-        // ─── Section 1: Rental Requests Management ────────────────
+        // Section 1: Rental Requests Management
         VBox requestsSection = new VBox(14);
         HBox reqHeader = new HBox(12);
         reqHeader.setAlignment(Pos.CENTER_LEFT);
@@ -154,9 +156,6 @@ public class OwnerDashboard {
                     requests.add(mr);
                 }
             }
-            System.out.println("[OWNER QUERY]");
-            System.out.println("Query ownerId: " + currentUser.getUid());
-            System.out.println("Requests found: " + requests.size());
 
             if (requests.isEmpty()) {
                 VBox emptyReq = new VBox(10);
@@ -177,7 +176,7 @@ public class OwnerDashboard {
 
         requestsSection.getChildren().addAll(reqHeader, requestsContainer);
 
-        // ─── Section 2: Inventory Listings Management ─────────────
+        // Section 2: Inventory Listings Management
         HBox sectionHeader = new HBox(20);
         sectionHeader.setAlignment(Pos.CENTER_LEFT);
         Text secTitle = new Text("My Inventory Listings");
@@ -518,6 +517,14 @@ public class OwnerDashboard {
 
         HBox actionsRow = new HBox(10);
         actionsRow.setAlignment(Pos.CENTER_RIGHT);
+
+        Button chatStudentBtn = new Button("💬 Message Student");
+        chatStudentBtn.setStyle(Theme.secondaryBtnStyle() + " -fx-padding: 6px 14px; -fx-font-size: 12px;");
+        chatStudentBtn.setOnAction(ev -> {
+            String studentUid = (r.getStudentId() != null && !r.getStudentId().isEmpty()) ? r.getStudentId() : "student_" + Math.abs(r.getStudentName().hashCode());
+            Main.showChatWithUser(studentUid, r.getStudentName(), "STUDENT", r.getItemId(), "ROOM", r.getItemTitle());
+        });
+        actionsRow.getChildren().add(chatStudentBtn);
 
         if ("REQUESTED".equalsIgnoreCase(status) || "PENDING".equalsIgnoreCase(status)) {
             Button acceptBtn = new Button("✓ Accept Request");
@@ -998,7 +1005,6 @@ public class OwnerDashboard {
         dialog.showAndWait().ifPresent(newItem -> {
             DataRepository.getInstance().addRoom(newItem);
             new RoomDAOImpl().save(newItem);
-            System.out.println("[LISTING] Created: listingId=" + newItem.getId() + ", ownerId=" + newItem.getOwnerUid() + ", category=" + newItem.getCategory());
             showAlert("Success", "'" + newItem.getTitle() + "' added to your rental inventory!");
             onAdded.run();
         });

@@ -8,9 +8,7 @@ import java.util.List;
 public class CloudinaryBatchUploader {
 
     public static void uploadAllProjectImages() {
-        System.out.println("==================================================");
         System.out.println("   Starting Batch Cloudinary Upload for Assets   ");
-        System.out.println("==================================================");
 
         File assetsDir = ImageUtil.resolveFile("assets/image");
         if (assetsDir == null || !assetsDir.exists() || !assetsDir.isDirectory()) {
@@ -55,8 +53,6 @@ public class CloudinaryBatchUploader {
             }
         }
 
-        System.out.println("==================================================");
         System.out.printf("   Batch Upload Finished: %d Succeeded, %d Failed\n", successCount, failCount);
-        System.out.println("==================================================");
     }
 }
